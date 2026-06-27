@@ -1,10 +1,17 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { chunkText } from "./pdf-extractor";
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 export async function summarizeDocument(text) {
+  const chunks = chunkText(text);
+  const contentToSummarize = chunks[0];
+
+  console.log("Total chunks:", chunks.length);
+  console.log("Chunk 1 length:", chunks[0].length);
+
   const stream = await client.messages.stream({
     model: "claude-sonnet-4-6",
     max_tokens: 2048,
@@ -13,7 +20,7 @@ export async function summarizeDocument(text) {
     messages: [
       {
         role: "user",
-        content: `Berikut isi dokumen yang perlu dianalisa:\n\n${text}`,
+        content: `Berikut isi dokumen yang perlu dianalisa:\n\n${contentToSummarize}`,
       },
     ],
   });

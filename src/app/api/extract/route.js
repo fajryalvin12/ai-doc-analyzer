@@ -1,16 +1,12 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const pdfParse = require("pdf-parse/lib/pdf-parse.js");
+import { summarizeDocument } from "@/lib/claude-client";
+import { extractPdfText } from "@/lib/pdf-extractor";
 
 export async function POST(request) {
   const formData = await request.formData();
   const file = formData.get("file");
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const data = await pdfParse(buffer);
+  const data = await extractPdfText(file);
+  const summary = await summarizeDocument(data.text);
 
-  return Response.json({
-    text: data.text,
-    pages: data.numpages,
-  });
+  return Response.json({ summary });
 }

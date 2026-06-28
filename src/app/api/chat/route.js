@@ -4,6 +4,13 @@ import pool from "@/lib/db";
 export async function POST(request) {
   const { fileId, question } = await request.json();
 
+  if (!fileId || !question) {
+    return Response.json(
+      { error: "fileId dan question wajib diisi." },
+      { status: 400 },
+    );
+  }
+
   // 1. Ambil extracted text dari DB berdasarkan fileId
   const fileResult = await pool.query(
     `SELECT extracted_text FROM files WHERE id = $1`,

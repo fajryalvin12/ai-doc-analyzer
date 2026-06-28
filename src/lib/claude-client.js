@@ -11,7 +11,7 @@ export async function summarizeDocument(text) {
 
   const stream = await client.messages.stream({
     model: "claude-sonnet-4-6",
-    max_tokens: 2048,
+    max_tokens: 1024,
     system:
       "You are a document analyzer assistant. Summarize the document provided by the user in Bahasa Indonesia. Extract the key points in bullet format.",
     messages: [
@@ -38,7 +38,7 @@ export async function answerQuestion(text, question) {
 
   const stream = await client.messages.stream({
     model: "claude-sonnet-4-6",
-    max_tokens: 2048,
+    max_tokens: 1024,
     system:
       "You are a document assistant. Answer the user's question based ONLY on the document provided. If the answer is not in the document, say so. Answer in Bahasa Indonesia.",
     messages: [

@@ -12,7 +12,7 @@ export async function extractPdfText(file) {
   };
 }
 
-export function chunkText(text, maxChars = 4000) {
+export function chunkText(text, maxChars = 3000) {
   const chunks = [];
   let start = 0;
 

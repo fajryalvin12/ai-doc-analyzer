@@ -143,7 +143,7 @@ export default function Home() {
                 ))}
                 {isAsking && (
                   <div className="flex justify-start">
-                    <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/40">
+                    <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/40 animate-pulse">
                       Thinking...
                     </div>
                   </div>
